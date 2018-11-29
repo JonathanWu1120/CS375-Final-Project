@@ -29,7 +29,7 @@ template <class T>
 AMGraph<T>::AMGraph() {
 	this->adjMatrix = std::vector<std::vector<Node<T>>>();
 	this->vertexes = std::vector<Node<T>>();
-};
+}
 
 /* Construct Graph in O(|V|*|E|) time */
 template <class T>
@@ -53,10 +53,10 @@ AMGraph<T>::AMGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E) {
 	// Insert all adjacencies based on edges
 	for(auto i : E) {
 		this->edges.push_back(i);
-		this->adjMatrix[i.getNode1()][i.getNode(2)] = i.getWeight();
+		this->adjMatrix[i.getNode1().getID()][i.getNode2().getID()] = i.getWeight();
 	}
 		
-};
+}
 
 template <class T>
 std::string AMGraph<T>::listAdjacents(Node<T> node) {
@@ -69,28 +69,28 @@ std::string AMGraph<T>::listAdjacents(Node<T> node) {
 	}
 	
 	std::string retVal;
-	std::stringsteam strStream;
-	strStream << "Nodes adjacent to " << id << ": " << vertexes[id].getData() << endl;
+	std::stringstream strStream;
+	strStream << "Nodes adjacent to " << id << ": " << vertexes[id].getData() << "\n";
 	for(unsigned int i=0; i < adjMatrix[id].size(); i++) {
 		if(adjMatrix[id][i] != -1)
-			strStream << "\tNode " << i << ": " << vertexes[i].getData() << endl << "\t\tEdge Weight: " << adjMatrix[id][i] << endl;
+			strStream << "\tNode " << i << ": " << vertexes[i].getData() << "\n\t\tEdge Weight: " << adjMatrix[id][i] << "\n";
 	}
 	
 	retVal = strStream.str();
 	return retVal;
-};
+}
 
 template <class T>
 std::string AMGraph<T>::listGraph() {
 	std::string retVal;
 	std::stringstream list;
-	list << "Listing entire graph" << endl << "--------------------------" << endl;
+	list << "Listing entire graph\n--------------------------\n";
 	for(auto i : vertexes) {
 		list << listAdjacents(i);
 	}
 	retVal = list.str();
 	return retVal;
-};
+}
 
 template <class T>
 std::vector<Edge<T>> AMGraph<T>::getEdges() {

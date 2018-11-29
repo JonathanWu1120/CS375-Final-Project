@@ -4,6 +4,8 @@
 #include <vector>
 #include "Node.h"
 #include "Edge.h"
+#include <sstream>
+#include <string>
 
 template <class T>
 class ALGraph {
@@ -16,6 +18,9 @@ class ALGraph {
 	public:
 		ALGraph();
 		ALGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E);
+		std::string listAdjacents(Node<T>);
+		std::string listGraph();
+		std::vector<Edge<T>> getEdges();
 		/* DEPRECATED
 		ALGraph(vector<Node<T>> V, vector<Edge<T>> E), int directed);
 		*/
@@ -27,7 +32,7 @@ ALGraph<T>::ALGraph() {
 	this->weights = std::vector<std::vector<int>>();
 	this->vertexes = std::vector<Node<T>>();
 	this->edges = std::vector<Edge<T>>();
-};
+}
 
 /* Construct Graph in O(|V|*|E|) time */
 template <class T>
@@ -54,9 +59,8 @@ ALGraph<T>::ALGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E) {
 		this->edges.push_back(i);
 		this->adjLists[i.getNode1().getID()].push_back(i.getNode2());
 		this->weights[i.getNode1().getID()].push_back(i.getWeight());
-	}
-		
-};
+	}		
+}
 
 template <class T>
 std::string ALGraph<T>::listAdjacents(Node<T> node) {
@@ -69,28 +73,28 @@ std::string ALGraph<T>::listAdjacents(Node<T> node) {
 	}
 	
 	std::string retVal;
-	std::stringsteam strStream;
-	strStream << "Nodes adjacent to " << id << ": " << vertexes[id].getData() << endl;
+	std::stringstream strStream;
+	strStream << "Nodes adjacent to " << id << ": " << vertexes[id].getData() << "\n";
 	for(unsigned int i=0; i < adjLists[id].size(); i++) {
-		strStream << "\tNode " << i << ": " << adjLists[id][i].getData() << endl;
-		strStream << "\t\tEdge weight: " << weights[id][i] << endl;
+		strStream << "\tNode " << i << ": " << adjLists[id][i].getData() << "\n";
+		strStream << "\t\tEdge weight: " << weights[id][i] << "\n";
 	}
 	
 	retVal = strStream.str();
 	return retVal;
-};
+}
 
 template <class T>
 std::string ALGraph<T>::listGraph() {
 	std::string retVal;
 	std::stringstream list;
-	list << "Listing entire graph" << endl << "--------------------------" << endl;
+	list << "Listing entire graph\n--------------------------\n";
 	for(auto i : vertexes) {
 		list << listAdjacents(i);
 	}
 	retVal = list.str();
 	return retVal;
-};
+}
 
 template <class T>
 std::vector<Edge<T>> ALGraph<T>::getEdges() {
