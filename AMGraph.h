@@ -12,12 +12,14 @@ class AMGraph {
 	private:
 		std::vector<std::vector<int>> adjMatrix;
 		std::vector<Node<T>> vertexes;
+		std::vector<Edge<T>> edges;
 		//int directed=0;
 	public:
 		AMGraph();
 		AMGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E);
 		std::string listAdjacents(Node<T>);
 		std::string listGraph();
+		std::vector<Edge<T>> getEdges();
 		/* DEPRECATED
 		AMGraph(vector<Node<T>> V, vector<Edge<T>> E), int directed);
 		*/
@@ -34,6 +36,7 @@ template <class T>
 AMGraph<T>::AMGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E) {
 	this->adjMatrix = std::vector<std::vector<int>>(V.size(), std::vector<int>(V.size(), -1));
 	this->vertexes = std::vector<Node<T>>(V.size());
+	this->edges = std::vector<Edge<T>>();
 	
 	// Set local IDs of all involved nodes
 	for(unsigned int i=0; i < V.size(); i++) {
@@ -49,6 +52,7 @@ AMGraph<T>::AMGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E) {
 	
 	// Insert all adjacencies based on edges
 	for(auto i : E) {
+		this->edges.push_back(i);
 		this->adjMatrix[i.getNode1()][i.getNode(2)] = i.getWeight();
 	}
 		
@@ -87,6 +91,11 @@ std::string AMGraph<T>::listGraph() {
 	retVal = list.str();
 	return retVal;
 };
+
+template <class T>
+std::vector<Edge<T>> AMGraph<T>::getEdges() {
+	return std::vector<Edge<T>>(edges);
+}
 
 
 /* DEPRECATED

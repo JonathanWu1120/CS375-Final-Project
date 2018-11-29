@@ -11,6 +11,7 @@ class ALGraph {
 		std::vector<Node<T>> vertexes;
 		std::vector<std::vector<Node<T>>> adjLists;
 		std::vector<std::vector<int>> weights;
+		std::vector<Edge<T>> edges;
 		//int directed=0;
 	public:
 		ALGraph();
@@ -24,7 +25,8 @@ template <class T>
 ALGraph<T>::ALGraph() {
 	this->adjLists = std::vector<std::vector<Node<T>>>();
 	this->weights = std::vector<std::vector<int>>();
-	this->vertexes = std::vector<Node<T>();
+	this->vertexes = std::vector<Node<T>>();
+	this->edges = std::vector<Edge<T>>();
 };
 
 /* Construct Graph in O(|V|*|E|) time */
@@ -32,7 +34,8 @@ template <class T>
 ALGraph<T>::ALGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E) {
 	this->adjLists = std::vector<std::vector<Node<T>>>(V.size(), std::vector<Node<T>>());
 	this->weights = std::vector<std::vector<int>>(V.size(), std::vector<int>());
-	this->vertexes = std::vector<Node<T>(V.size());
+	this->vertexes = std::vector<Node<T>>(V.size());
+	this->edges = std::vector<Edge<T>>();
 	
 	// Set local IDs of all involved nodes
 	for(unsigned int i=0; i < V.size(); i++) {
@@ -48,6 +51,7 @@ ALGraph<T>::ALGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E) {
 	
 	// Insert all adjacencies based on edges
 	for(auto i : E) {
+		this->edges.push_back(i);
 		this->adjLists[i.getNode1().getID()].push_back(i.getNode2());
 		this->weights[i.getNode1().getID()].push_back(i.getWeight());
 	}
@@ -87,6 +91,11 @@ std::string ALGraph<T>::listGraph() {
 	retVal = list.str();
 	return retVal;
 };
+
+template <class T>
+std::vector<Edge<T>> ALGraph<T>::getEdges() {
+	return std::vector<Edge<T>>(edges);
+}
 
 /* DEPRECATED
 template <class T>
