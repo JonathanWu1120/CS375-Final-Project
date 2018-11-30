@@ -71,12 +71,18 @@ std::string AMGraph<T>::listAdjacents(Node<T> node) {
 	std::string retVal;
 	std::stringstream strStream;
 	strStream << "Nodes adjacent to " << id << ": " << vertexes[id].getData() << "\n";
+	std::stringstream strStream2;
 	for(unsigned int i=0; i < adjMatrix[id].size(); i++) {
 		if(adjMatrix[id][i] != -1)
-			strStream << "\tNode " << i << ": " << vertexes[i].getData() << "\n\t\tEdge Weight: " << adjMatrix[id][i] << "\n";
+			strStream2 << "\tNode " << i << ": " << vertexes[i].getData() << "\n\t\tEdge weight: " << adjMatrix[id][i] << "\n";
 	}
 	
 	retVal = strStream.str();
+	std::string retVal2 = strStream2.str();
+	if(retVal2.empty()) 
+		retVal.append("\tNo adjacent nodes\n");
+	else
+		retVal.append(retVal2);
 	return retVal;
 }
 

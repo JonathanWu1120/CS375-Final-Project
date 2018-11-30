@@ -4,7 +4,7 @@
 template <class T>
 class Node {
 	private:
-		static unsigned int GLOBAL_ID = 0;
+		static unsigned int GLOBAL_ID;
 		unsigned int privateID;
 		int id;
 		T data;
@@ -18,5 +18,8 @@ class Node {
 		void setData(T val){this->data = val;};
 		bool operator ==(Node<T> other){return other.privateID == this->privateID;};
 };
+
+template <class T>
+unsigned int Node<T>::GLOBAL_ID = 0;
 
 #endif

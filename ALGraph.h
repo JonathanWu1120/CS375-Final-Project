@@ -75,12 +75,18 @@ std::string ALGraph<T>::listAdjacents(Node<T> node) {
 	std::string retVal;
 	std::stringstream strStream;
 	strStream << "Nodes adjacent to " << id << ": " << vertexes[id].getData() << "\n";
+	std::stringstream strStream2;
 	for(unsigned int i=0; i < adjLists[id].size(); i++) {
-		strStream << "\tNode " << i << ": " << adjLists[id][i].getData() << "\n";
-		strStream << "\t\tEdge weight: " << weights[id][i] << "\n";
+		strStream2 << "\tNode " << adjLists[id][i].getID() << ": " << adjLists[id][i].getData() << "\n";
+		strStream2 << "\t\tEdge weight: " << weights[id][i] << "\n";
 	}
 	
 	retVal = strStream.str();
+	std::string retVal2 = strStream2.str();
+	if(retVal2.empty()) 
+		retVal.append("\tNo adjacent nodes\n");
+	else
+		retVal.append(retVal2);
 	return retVal;
 }
 
