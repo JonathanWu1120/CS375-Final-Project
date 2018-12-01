@@ -55,5 +55,5 @@ void revDelMST(AMGraph* graph){
 			else j++;
 		}
 	}
-	for (Edge edge : edges) std::cout << e.getNode1().getID() << e.getNode2().getID() << e.getWeight() << std::endl;
+	for (Edge edge : edges) std::cout << " " << e.getNode1().getID() << " " <<e.getNode2().getID() << " " <<e.getWeight() << std::endl;
 }
