@@ -133,6 +133,7 @@ int main() {
 		AMGraph<int> matGraph2 = AMGraph<int>(nodes2, e2);
 		cout << matGraph2.listGraph() << endl;
 		KruskalMST<int>(&matGraph2);
+		
 		// ALGraph
 	
 }
