@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 #include <assert.h>
+#include <chrono>
 
 using namespace std;
 
@@ -79,7 +80,7 @@ int main() {
 	
 	// TEST: Kruskal's Algorithm
 		// AMGraph
-	cout << "---TEST: Kruskal's algorithm---" << endl;
+	cout << "---TEST: Kruskal's algorithm on AMGraph---" << endl;
 		// Generate nodes
 		vector<Node<int>> nodes2 = vector<Node<int>>();
 		for(int i=0; i < 10; i++) {
@@ -132,9 +133,36 @@ int main() {
 		e2.push_back(pair[0]);
 		e2.push_back(pair[1]);
 		AMGraph<int> matGraph2 = AMGraph<int>(nodes2, e2);
-		cout << matGraph2.listGraph() << endl;
-	//	KruskalMST<int>(&matGraph2);
-		revDelMST<int>(&matGraph2);
+		int begin = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
+		KruskalMST<int>(&matGraph2);
+		int end = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
+		int timeElapsed = end - begin;
+		cout << "Time elapsed: " << timeElapsed << endl;
+	cout << "---------------------" << endl;
 		// ALGraph
-	
+	cout << "---TEST: Kruskal's algorithm on ALGraph---" << endl;
+		ALGraph<int> listGraph2(nodes2, e2);
+		begin = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
+		KruskalMST<int>(&listGraph2);
+		end = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
+		timeElapsed = end - begin;
+		cout << "Time elapsed: " << timeElapsed << endl;
+	cout << "---------------------" << endl;
+	// TEST: Reverse-Delete Algorithm
+		// AMGraph
+	cout << "---TEST: Reverse-Delete algorithm on ALGraph---" << endl;
+		begin = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
+		revDelMST<int>(&matGraph2);
+		end = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
+		timeElapsed = end - begin;
+		cout << "Time elapsed: " << timeElapsed << endl;
+	cout << "---------------------" << endl;
+		// ALGraph
+	cout << "---TEST: Reverse-Delete algorithm on AMGraph---" << endl;
+		begin = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
+		revDelMST<int>(&listGraph2);
+		end = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
+		timeElapsed = end - begin;
+		cout << "Time elapsed: " << timeElapsed << endl;
+	cout << "---------------------" << endl;
 }

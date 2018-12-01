@@ -113,8 +113,8 @@ std::vector<Edge<T>> AMGraph<T>::getEdges() {
 template <class T>
 std::vector<Node<T>> AMGraph<T>::getAdjacents(Node<T> node) {
 	std::vector<Node<T>> returnVal = std::vector<Node<T>>();
-	for(auto i : this->adjMatrix[node.getID()]) {
-		if(i != -1)
+	for(unsigned int i=0; i < adjMatrix[node.getID()].size(); i++) {
+		if(adjMatrix[node.getID()][i] != -1)
 			returnVal.push_back(vertexes[i]);
 	}
 	return returnVal;
@@ -124,15 +124,14 @@ template <class T>
 bool AMGraph<T>::isConnected() {
 	Node<T> s = vertexes[0];
 	std::vector<bool> visited = std::vector<bool>(vertexes.size(), false);
-	std::vector<Node<T>> queue;
+	std::vector<Node<T>> queue = std::vector<Node<T>>();
 	visited[0] = true;
 	queue.push_back(s);
 	while(!queue.empty()) {
 		s = queue.front();
-		auto f = queue.begin();
-		f++;
-		queue = std::vector<Node<T>>(f, queue.end());
-		for(auto i : getAdjacents(s)) {
+		queue.erase(queue.begin());
+		std::vector<Node<T>> adjacents = getAdjacents(s);
+		for(auto i : adjacents) {
 			if(!visited[i.getID()]) {
 				visited[i.getID()] = true;
 				queue.push_back(i);
@@ -144,8 +143,7 @@ bool AMGraph<T>::isConnected() {
 		if(!i)
 			returnVal = false;
 	}
-	return returnVal;
-	
+	return returnVal;	
 }
 
 #endif

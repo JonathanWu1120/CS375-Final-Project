@@ -134,7 +134,7 @@ void KruskalMST(ALGraph<T>* graph){
 		}
 	}
 	for(Edge<T> ed : result){
-		std::cout << ed.getNode1().getID() << " "  << ed.getNode2().getID() << " "  << ed.getWeight() << std::endl;
+		std::cout << ed.getNode1().getID() << " " << ed.getNode2().getID() << " " << ed.getWeight() << std::endl;
 	}
 
 }

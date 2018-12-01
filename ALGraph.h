@@ -55,7 +55,6 @@ ALGraph<T>::ALGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E) {
 	
 	// Insert all adjacencies based on edges
 	for(auto &i : E) {
-		std::cout << i.getNode1().getID() << std::endl;
 		this->edges.push_back(i);
 		this->adjLists[i.getNode1().getID()].push_back(i.getNode2());
 		this->weights[i.getNode1().getID()].push_back(i.getWeight());
@@ -120,17 +119,18 @@ std::vector<Node<T>> ALGraph<T>::getAdjacents(Node<T> node) {
 template <class T>
 bool ALGraph<T>::isConnected() {
 	Node<T> s = vertexes[0];
-	bool visited[vertexes.size()] = {false};
-	std::vector<Node<T>> queue;
+	std::vector<bool> visited = std::vector<bool>(vertexes.size(), false);
+	std::vector<Node<T>> queue = std::vector<Node<T>>();
 	visited[0] = true;
 	queue.push_back(s);
 	while(!queue.empty()) {
 		s = queue.front();
-		queue.pop_front();
-		for(auto i : getAdjacents(s)) {
-			if(!visited[(*i).getID()]) {
-				visited[(*i)] = true;
-				queue.push_back(*i);
+		queue.erase(queue.begin());
+		std::vector<Node<T>> adjacents = getAdjacents(s);
+		for(auto i : adjacents) {
+			if(!visited[i.getID()]) {
+				visited[i.getID()] = true;
+				queue.push_back(i);
 			}
 		}
 	}
@@ -139,8 +139,7 @@ bool ALGraph<T>::isConnected() {
 		if(!i)
 			returnVal = false;
 	}
-	return returnVal;
-	
+	return returnVal;	
 }
 
 #endif

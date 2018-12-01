@@ -17,6 +17,7 @@ class Edge {
 		Node<T> & getNode2(){return node2;};
 		int getWeight(){return weight;};
 		bool operator <(Edge<T> other){return this->weight < other.weight;};
+		bool operator ==(Edge<T> other){return this->node1 == other.node1 && this->node2 == other.node2 && this->weight == other.weight;};
 };
 
 #endif
