@@ -37,6 +37,7 @@ void revDelMST(AMGraph<T>* graph){
 			temp.clear();
 		}
 	}
+	
 /*	for (auto i = edges.begin(); i != edges.end();){
 		int erased = 0;
 		Node<T> vertex1 = i.getNode1();
