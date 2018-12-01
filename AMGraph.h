@@ -14,7 +14,6 @@ class AMGraph {
 		std::vector<std::vector<int>> adjMatrix;
 		std::vector<Node<T>> vertexes;
 		std::vector<Edge<T>> edges;
-		//int directed=0;
 	public:
 		AMGraph();
 		AMGraph(std::vector<Node<T>> &V, std::vector<Edge<T>> &E);
@@ -24,9 +23,6 @@ class AMGraph {
 		std::vector<Node<T>> getAdjacents(Node<T>);
 		std::vector<Node<T>> getVertexes();
 		bool isConnected();
-		/* DEPRECATED
-		AMGraph(vector<Node<T>> V, vector<Edge<T>> E), int directed);
-		*/
 };
 
 template <class T>
@@ -151,30 +147,5 @@ bool AMGraph<T>::isConnected() {
 	return returnVal;
 	
 }
-
-
-/* DEPRECATED
-template <class T>
-ALGraph<T>::ALGraph(vector<Node<T>> V, vector<Edge<T>> E, int directed) {
-	this->directed = directed;
-	this->adjMatrix = vector<vector<Node<T>>>(V.size(), vector<Node<T>>(V.size(), -1));
-	// Set local IDs of all involved nodes
-	for(unsigned int i=0; i < V.size(); i++) {
-		V[i].setID(i);
-		for(auto j : E) {
-			if(j.getNode1() == V[i])
-				j.getNode1().setID(i);
-			if(j.getNode2() == V[i])
-				j.getNode2().setID(i);
-		}
-	}
-	
-	// Insert all adjacencies based on edges
-	for(auto i : E) {
-		this->adjMatrix[i.getNode1()][i.getNode(2)] = i.getWeight();
-	}
-		
-};
-*/
 
 #endif

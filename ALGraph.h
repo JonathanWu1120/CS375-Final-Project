@@ -14,7 +14,6 @@ class ALGraph {
 		std::vector<std::vector<Node<T>>> adjLists;
 		std::vector<std::vector<int>> weights;
 		std::vector<Edge<T>> edges;
-		//int directed=0;
 	public:
 		ALGraph();
 		ALGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E);
@@ -24,9 +23,6 @@ class ALGraph {
 		std::vector<Node<T>> getAdjacents(Node<T>);
 		std::vector<Node<T>> getVertexes();
 		bool isConnected();
-		/* DEPRECATED
-		ALGraph(vector<Node<T>> V, vector<Edge<T>> E), int directed);
-		*/
 };
 
 template <class T>
@@ -146,31 +142,5 @@ bool ALGraph<T>::isConnected() {
 	return returnVal;
 	
 }
-
-/* DEPRECATED
-template <class T>
-ALGraph<T>::ALGraph(vector<Node<T>> V, vector<Edge<T>> E, int directed) {
-	this->directed = directed;
-	this->adjLists = vector<vector<Node<T>>>(V.size());
-	this->weights = vector<vector<int>>(V.size());
-	// Set local IDs of all involved nodes
-	for(unsigned int i=0; i < V.size(); i++) {
-		V[i].setID(i);
-		for(auto j : E) {
-			if(j.getNode1() == V[i])
-				j.getNode1().setID(i);
-			if(j.getNode2() == V[i])
-				j.getNode2().setID(i);
-		}
-	}
-	
-	// Insert all adjacencies based on edges
-	for(auto i : E) {
-		adjLists[i.getNode1()].push_back(i.getNode(2));
-		weights[i.getNode1()].push_back(i.getWeight());
-	}
-	
-};
-*/
 
 #endif
