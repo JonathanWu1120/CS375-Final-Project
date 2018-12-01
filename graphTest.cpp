@@ -1,4 +1,5 @@
 #include "Node.h"
+#include <cstdlib>
 #include "Edge.h"
 #include "ALGraph.h"
 #include "AMGraph.h"
@@ -8,6 +9,8 @@
 #include <string>
 #include <iostream>
 #include <assert.h>
+#include <stdlib.h>
+#include <time.h>
 #include <chrono>
 
 using namespace std;
@@ -165,4 +168,64 @@ int main() {
 		timeElapsed = end - begin;
 		cout << "Time elapsed: " << timeElapsed << endl;
 	cout << "---------------------" << endl;
+	/*
+	int n = 10;
+	int k = 15;
+	int count = 0;
+	for(int i = 0; i < 10; i++){
+		cout << "---------TEST #" << i + 3 << "------------" << endl;
+		vector<Node<int>> nodes3 = vector<Node<int>>();
+		vector<Edge<int>> e3 = vector<Edge<int>>();
+		vector<Edge<int>> pair = vector<Edge<int>>();
+		for(int j = 0; j < n; j++){
+			Node<int> node = Node<int>(j);
+			cout << node.getID() << endl;
+			nodes2.push_back(node);
+		}
+		int seed = (n * (n-1) / 2) - n;
+		srand(time(NULL));
+		k = rand()%seed;
+		if(k < n) k += n;
+		count = 0;
+		cout << n << "   K " << k << endl;
+		while(count < n){
+			pair = getUndirectedEdges(nodes3[count], nodes3[count+1], rand()%100);
+			e3.push_back(pair[0]);
+			e3.push_back(pair[1]);
+			count++;
+		}
+		while(count < k){
+			int n1 = rand()%n;
+			int n2 = rand()%n;
+			while(abs(n1-n2) < 2){
+				n2 = rand()%n;
+			}
+			cout << n1 << " " << n2 << " 2" << endl;
+			pair = getUndirectedEdges(nodes3[n1],nodes3[n2],rand()%100);
+			cout << nodes3[n1].getID() << " " << nodes3[n2].getID() << endl;
+			e3.push_back(pair[0]);
+			e3.push_back(pair[1]);
+			count++;
+		}
+		cout << nodes3.size() << " nodes" << e3.size() << " Edges" << endl;
+		ALGraph<int> a2 = ALGraph<int>(nodes3,e3);
+		cout <<"between" <<endl;
+		AMGraph<int> a1 = AMGraph<int>(nodes3,e3);
+		cout << "???" << endl;
+		begin = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
+		cout << "FIVE" << endl;
+		KruskalMST<int>(&a1);
+		end = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
+		timeElapsed = end - begin;
+		cout << "Time elapsed: " << timeElapsed << endl;
+
+		begin = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
+		cout << "SIX" << endl;
+		revDelMST<int>(&a2);
+		end = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
+		timeElapsed = end - begin;
+		cout << "Time elapsed: " << timeElapsed << endl;
+		n *= 2;
+	}*/
+
 }
