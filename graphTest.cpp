@@ -2,12 +2,20 @@
 #include "Edge.h"
 #include "ALGraph.h"
 #include "AMGraph.h"
+#include "Kurskal.h"
 #include <vector>
 #include <string>
 #include <iostream>
 #include <assert.h>
 
 using namespace std;
+
+vector<Edge<int>> getUndirectedEdges(Node<int> a, Node<int> b, int weight) {
+	vector<Edge<int>> pair = vector<Edge<int>>();
+	pair.push_back(Edge<int>(a, b, weight));
+	pair.push_back(Edge<int>(b, a, weight));
+	return pair;
+}
 
 int main() {
 	// TEST: Node creation
@@ -66,4 +74,65 @@ int main() {
 	cout << "---TEST: AMGraph listGraph---" << endl;
 		cout << matGraph.listGraph();
 	cout << "---------------------" << endl;
+	
+	
+	// TEST: Kruskal's Algorithm
+		// AMGraph
+	cout << "---TEST: Kruskal's algorithm---" << endl;
+		// Generate nodes
+		vector<Node<int>> nodes2 = vector<Node<int>>();
+		for(int i=0; i < 10; i++) {
+			Node<int> n = Node<int>(i);
+			nodes2.push_back(n);
+		}
+		// Generate edges
+		vector<Edge<int>> e2 = vector<Edge<int>>();
+		vector<Edge<int>> pair = vector<Edge<int>>();
+		pair = getUndirectedEdges(nodes2[0], nodes2[1], 4);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		pair = getUndirectedEdges(nodes2[0], nodes2[2], 3);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		pair = getUndirectedEdges(nodes2[0], nodes2[8], 5);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		pair = getUndirectedEdges(nodes2[0], nodes2[3], 1);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		pair = getUndirectedEdges(nodes2[1], nodes2[3], 3);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		pair = getUndirectedEdges(nodes2[2], nodes2[7], 100);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		pair = getUndirectedEdges(nodes2[2], nodes2[3], 2);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		pair = getUndirectedEdges(nodes2[3], nodes2[4], 23);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		pair = getUndirectedEdges(nodes2[3], nodes2[9], 9);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		pair = getUndirectedEdges(nodes2[4], nodes2[9], 8);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		pair = getUndirectedEdges(nodes2[4], nodes2[6], 300);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		pair = getUndirectedEdges(nodes2[5], nodes2[9], 10);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		pair = getUndirectedEdges(nodes2[6], nodes2[7], 33);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		pair = getUndirectedEdges(nodes2[7], nodes2[8], 47);
+		e2.push_back(pair[0]);
+		e2.push_back(pair[1]);
+		AMGraph<int> matGraph2 = AMGraph<int>(nodes2, e2);
+		cout << matGraph2.listGraph() << endl;
+		KruskalMST<int>(&matGraph2);
+		// ALGraph
+	
 }

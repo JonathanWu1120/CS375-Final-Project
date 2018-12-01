@@ -21,6 +21,8 @@ class ALGraph {
 		std::string listAdjacents(Node<T>);
 		std::string listGraph();
 		std::vector<Edge<T>> getEdges();
+		std::vector<Node<T>> getAdjacents(Node<T>);
+		std::vector<Node<T>> getVertexes();
 		/* DEPRECATED
 		ALGraph(vector<Node<T>> V, vector<Edge<T>> E), int directed);
 		*/
@@ -45,7 +47,7 @@ ALGraph<T>::ALGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E) {
 	// Set local IDs of all involved nodes
 	for(unsigned int i=0; i < V.size(); i++) {
 		V[i].setID(i);
-		for(auto j : E) {
+		for(auto &j : E) {
 			if(j.getNode1() == V[i])
 				j.getNode1().setID(i);
 			if(j.getNode2() == V[i])
@@ -55,7 +57,8 @@ ALGraph<T>::ALGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E) {
 	}
 	
 	// Insert all adjacencies based on edges
-	for(auto i : E) {
+	for(auto &i : E) {
+		std::cout << i.getNode1().getID() << std::endl;
 		this->edges.push_back(i);
 		this->adjLists[i.getNode1().getID()].push_back(i.getNode2());
 		this->weights[i.getNode1().getID()].push_back(i.getWeight());
@@ -106,6 +109,38 @@ template <class T>
 std::vector<Edge<T>> ALGraph<T>::getEdges() {
 	return std::vector<Edge<T>>(edges);
 }
+
+template <class T>
+std::vector<Node<T>> ALGraph<T>::getVertexes() {
+	return std::vector<Node<T>>(vertexes);
+}
+
+template <class T>
+std::vector<Node<T>> ALGraph<T>::getAdjacents(Node<T> node) {
+	return std::vector<Node<T>>(adjLists[node.getID()]);
+}
+
+/*
+template <class T>
+bool isConnected() {
+	Node<T> s = nodes[0];
+	bool visited[nodes.size()] = {false};
+	vector<Node<T>> queue;
+	visited[0] = true;
+	queue.push_back(s);
+	while(!queue.empty()) {
+		s = queue.front();
+		queue.pop_front();
+		for(auto i : getAdjacents(s)) {
+			if(!visited[(*i).getID()]) {
+				visited[(*i)] = true;
+				queue.push_back(*i);
+			}
+		}
+	}
+	
+}
+*/
 
 /* DEPRECATED
 template <class T>

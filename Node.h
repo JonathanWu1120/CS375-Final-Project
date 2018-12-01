@@ -1,6 +1,6 @@
 #ifndef NODE_H
 #define NODE_H
-
+#include <iostream>
 template <class T>
 class Node {
 	private:
@@ -13,7 +13,7 @@ class Node {
 		Node(int id, T data){this->id=id; this->data=data; this->privateID=this->GLOBAL_ID++;};
 		Node(T data){this->data=data; this->privateID=this->GLOBAL_ID++; this->id=this->privateID;};
 		int getID(){return this->id;};
-		void setID(int num){this->id=num;};
+		void setID(const int &num){this->id=num;};
 		int getData(){return this->data;};
 		void setData(T val){this->data = val;};
 		bool operator ==(Node<T> other){return other.privateID == this->privateID;};

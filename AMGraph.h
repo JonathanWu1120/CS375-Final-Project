@@ -6,6 +6,7 @@
 #include "Edge.h"
 #include <sstream>
 #include <string>
+#include <iostream>
 
 template <class T>
 class AMGraph {
@@ -16,10 +17,12 @@ class AMGraph {
 		//int directed=0;
 	public:
 		AMGraph();
-		AMGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E);
+		AMGraph(std::vector<Node<T>> &V, std::vector<Edge<T>> &E);
 		std::string listAdjacents(Node<T>);
 		std::string listGraph();
 		std::vector<Edge<T>> getEdges();
+		std::vector<Node<T>> getAdjacents(Node<T>);
+		std::vector<Node<T>> getVertexes();
 		/* DEPRECATED
 		AMGraph(vector<Node<T>> V, vector<Edge<T>> E), int directed);
 		*/
@@ -33,25 +36,27 @@ AMGraph<T>::AMGraph() {
 
 /* Construct Graph in O(|V|*|E|) time */
 template <class T>
-AMGraph<T>::AMGraph(std::vector<Node<T>> V, std::vector<Edge<T>> E) {
+AMGraph<T>::AMGraph(std::vector<Node<T>> &V, std::vector<Edge<T>> &E) {
 	this->adjMatrix = std::vector<std::vector<int>>(V.size(), std::vector<int>(V.size(), -1));
 	this->vertexes = std::vector<Node<T>>(V.size());
 	this->edges = std::vector<Edge<T>>();
-	
 	// Set local IDs of all involved nodes
 	for(unsigned int i=0; i < V.size(); i++) {
 		V[i].setID(i);
-		for(auto j : E) {
-			if(j.getNode1() == V[i])
+		for(auto &j : E) {
+			
+			if(j.getNode1() == V[i]) {
 				j.getNode1().setID(i);
-			if(j.getNode2() == V[i])
+			}
+			if(j.getNode2() == V[i]) {
 				j.getNode2().setID(i);
+			}
 		}
 		vertexes[i] = V[i];
 	}
 	
 	// Insert all adjacencies based on edges
-	for(auto i : E) {
+	for(auto &i : E) {
 		this->edges.push_back(i);
 		this->adjMatrix[i.getNode1().getID()][i.getNode2().getID()] = i.getWeight();
 	}
@@ -99,8 +104,23 @@ std::string AMGraph<T>::listGraph() {
 }
 
 template <class T>
+std::vector<Node<T>> AMGraph<T>::getVertexes() {
+	return std::vector<Node<T>>(vertexes);
+}
+
+template <class T>
 std::vector<Edge<T>> AMGraph<T>::getEdges() {
 	return std::vector<Edge<T>>(edges);
+}
+
+template <class T>
+std::vector<Node<T>> AMGraph<T>::getAdjacents(Node<T> node) {
+	std::vector<Node<T>> returnVal = std::vector<Node<T>>();
+	for(auto i : this->adjMatrix[node.getID()]) {
+		if(*i != -1)
+			returnVal.push_back(vertexes[*i]);
+	}
+	return returnVal;
 }
 
 
