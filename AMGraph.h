@@ -23,6 +23,7 @@ class AMGraph {
 		std::vector<Edge<T>> getEdges();
 		std::vector<Node<T>> getAdjacents(Node<T>);
 		std::vector<Node<T>> getVertexes();
+		bool isConnected();
 		/* DEPRECATED
 		AMGraph(vector<Node<T>> V, vector<Edge<T>> E), int directed);
 		*/
@@ -117,10 +118,38 @@ template <class T>
 std::vector<Node<T>> AMGraph<T>::getAdjacents(Node<T> node) {
 	std::vector<Node<T>> returnVal = std::vector<Node<T>>();
 	for(auto i : this->adjMatrix[node.getID()]) {
-		if(*i != -1)
-			returnVal.push_back(vertexes[*i]);
+		if(i != -1)
+			returnVal.push_back(vertexes[i]);
 	}
 	return returnVal;
+}
+
+template <class T>
+bool AMGraph<T>::isConnected() {
+	Node<T> s = vertexes[0];
+	std::vector<bool> visited = std::vector<bool>(vertexes.size(), false);
+	std::vector<Node<T>> queue;
+	visited[0] = true;
+	queue.push_back(s);
+	while(!queue.empty()) {
+		s = queue.front();
+		auto f = queue.begin();
+		f++;
+		queue = std::vector<Node<T>>(f, queue.end());
+		for(auto i : getAdjacents(s)) {
+			if(!visited[i.getID()]) {
+				visited[i.getID()] = true;
+				queue.push_back(i);
+			}
+		}
+	}
+	bool returnVal = true;
+	for(auto i : visited) {
+		if(!i)
+			returnVal = false;
+	}
+	return returnVal;
+	
 }
 
 

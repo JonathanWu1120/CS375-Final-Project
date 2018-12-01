@@ -3,6 +3,7 @@
 #include "ALGraph.h"
 #include "AMGraph.h"
 #include "Kurskal.h"
+#include "revDel.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -133,7 +134,7 @@ int main() {
 		AMGraph<int> matGraph2 = AMGraph<int>(nodes2, e2);
 		cout << matGraph2.listGraph() << endl;
 		KruskalMST<int>(&matGraph2);
-		
+		revDelMST<int>(&matGraph2);
 		// ALGraph
 	
 }

@@ -1,5 +1,5 @@
 CFLAGS=-Wall -Wextra -DDEBUG -pedantic -std=c++14
-HEADERS=Node.h Edge.h AMGraph.h ALGraph.h Kurskal.h
+HEADERS=Node.h Edge.h AMGraph.h ALGraph.h Kurskal.h revDel.h
 
 all:
 

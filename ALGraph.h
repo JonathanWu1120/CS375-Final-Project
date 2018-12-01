@@ -23,6 +23,7 @@ class ALGraph {
 		std::vector<Edge<T>> getEdges();
 		std::vector<Node<T>> getAdjacents(Node<T>);
 		std::vector<Node<T>> getVertexes();
+		bool isConnected();
 		/* DEPRECATED
 		ALGraph(vector<Node<T>> V, vector<Edge<T>> E), int directed);
 		*/
@@ -120,12 +121,11 @@ std::vector<Node<T>> ALGraph<T>::getAdjacents(Node<T> node) {
 	return std::vector<Node<T>>(adjLists[node.getID()]);
 }
 
-/*
 template <class T>
-bool isConnected() {
-	Node<T> s = nodes[0];
-	bool visited[nodes.size()] = {false};
-	vector<Node<T>> queue;
+bool ALGraph<T>::isConnected() {
+	Node<T> s = vertexes[0];
+	bool visited[vertexes.size()] = {false};
+	std::vector<Node<T>> queue;
 	visited[0] = true;
 	queue.push_back(s);
 	while(!queue.empty()) {
@@ -138,9 +138,14 @@ bool isConnected() {
 			}
 		}
 	}
+	bool returnVal = true;
+	for(auto i : visited) {
+		if(!i)
+			returnVal = false;
+	}
+	return returnVal;
 	
 }
-*/
 
 /* DEPRECATED
 template <class T>

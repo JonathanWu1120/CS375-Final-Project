@@ -64,11 +64,6 @@ class union_find{
 };
 
 template <class T>
-int compare(Edge<T>* a, Edge<T>* b){
-	return a->getWeight() > b->getWeight();
-}
-
-template <class T>
 void KruskalMST(AMGraph<T>* graph){
 	std::vector<Edge<T>> edges = graph->getEdges();
 	std::vector<Node<T>> nodes = graph->getVertexes();
