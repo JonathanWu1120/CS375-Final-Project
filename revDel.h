@@ -20,67 +20,40 @@ void revDelMST(AMGraph<T>* graph){
 	std::vector<Edge<T>> temp;
 	std::sort(edges.begin(),edges.end());
 	std::reverse(edges.begin(),edges.end());
+	std::cout << "initial: ";////////////////////////////////////////////////////////////////////////////////
+	for (Edge<T> edge : edges) std::cout << edge.getNode1().getID() << "," << edge.getNode2().getID() << " ";////////////////
+	std::cout << std::endl;///////////////////////////////////////////////////////////////////////////////////////
 	for (auto curEdge = edges.begin(); curEdge != edges.end();){
 		temp.push_back(*curEdge);
+	std::cout << "temp: ";////////////////////////////////////////////////////////////////////////////////
+	for (Edge<T> edge : temp) std::cout << edge.getNode1().getID() << "," << edge.getNode2().getID() << " ";////////////////
+	std::cout << std::endl;///////////////////////////////////////////////////////////////////////////////////////
 		for (auto j = edges.begin(); j < edges.end();){
 			if ((*curEdge).getNode1() == (*j).getNode2() && (*curEdge).getNode2() == (*j).getNode1()){
 				temp.push_back(*j);
 				j = edges.erase(j);
+				break;
 			}
 			else j++;
 		}
+	std::cout << "edges: ";////////////////////////////////////////////////////////////////////////////////
+	for (Edge<T> edge : edges) std::cout << edge.getNode1().getID() << "," << edge.getNode2().getID() << " ";////////////////
+	std::cout << std::endl;///////////////////////////////////////////////////////////////////////////////////////
+	std::cout << "temp: ";////////////////////////////////////////////////////////////////////////////////
+	for (Edge<T> edge : temp) std::cout << edge.getNode1().getID() << "," << edge.getNode2().getID() << " ";////////////////
+	std::cout << std::endl;///////////////////////////////////////////////////////////////////////////////////////
 		curEdge = edges.erase(curEdge);
 		
 		AMGraph<T> testGraph = AMGraph<T>(vertices, edges);
+		std::cout << "Made it to just before \"if isConnected\"" << std::endl;///////////////////////////////////////////////////
 		if(!testGraph.isConnected()) {
-			edges.insert(edges.begin(), temp.begin(), temp.end());//does this work?
+		std::cout << "Made it to just after \"if isConnected\"" << std::endl;///////////////////////////////////////////////////
+			edges.insert(edges.begin(), temp.begin(), temp.end());
 			temp.clear();
 		}
 	}
-	
-/*	for (auto i = edges.begin(); i != edges.end();){
-		int erased = 0;
-		Node<T> vertex1 = i.getNode1();
-		Node<T> vertex2 = i.getNode2();
-		
-		//Remove vertices from adjacency matrix
-		for (int j = 0; j <  graph->adjLists[vertex1.getID()].size();){
-			if (graph->adjLists[vertex1.getID()][j].getID() == vertex2.getID()) j = graph->adjLists[vertex1.getID()].erase(j);
-			else j++;
-		}
-		for (int j = 0; j <  graph->adjLists[vertex2.getID()].size();){
-			if (graph->adjLists[vertex2.getID()][j].getID() == vertex1.getID()) j = graph->adjLists[vertex2.getID()].erase(j);
-			else j++;
-		}
-		temp.push_back(edges[i]);
-		for (auto j = edges.begin(); j < edges.end();){
-			if (i.getNode1() == j.getNode2() && i.getNode2() == j.getNode1()){
-				temp.push_back(j);
-				j = edges.erase(j);
-			}
-			else j++;
-		}
-		i = edges.erase(i);
-		
-		if (!graph.isConnected()){
-			//add each vertex to the other's in adjacency matrix
-			graph->adjLists[i.getNode1().getID()].push_back(i.getNode2());
-			graph->adjLists[i.getNode2().getID()].push_back(i.getNode1());
-			edges.insert(edges.begin(), temp, temp+temp.size());//does this work?
-			temp.clear();
-		}
-		
-		//increments if not shifted
-		i+=(erased==0)?1:0;
-	}*/
-//	for (auto i = discard.begin(); i < discard.end(); i++){
-	//	for (auto j = edges.begin(); j < edges.end();){
-		//	if (i.getNode1() == j.getNode1() && i.getNode2() == j.getNode2()) j = edges.erase(j);
-			//else j++;
-	//	}
-	//}
-	for (Edge<T> edge : edges) std::cout << " " << edge.getNode1().getID() << " " << edge.getNode2().getID() << " " << edge.getWeight() << std::endl;
-	
+	//Print output
+	for (Edge<T> edge : edges) std::cout << " " << edge.getNode1().getID() << " " << edge.getNode2().getID() << " " << edge.getWeight() << std::endl;	
 }
 
 #endif
