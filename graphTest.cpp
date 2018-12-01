@@ -153,17 +153,17 @@ int main() {
 	cout << "---------------------" << endl;
 	// TEST: Reverse-Delete Algorithm
 		// AMGraph
-	cout << "---TEST: Reverse-Delete algorithm on ALGraph---" << endl;
+	cout << "---TEST: Reverse-Delete algorithm on AMGraph---" << endl;
 		begin = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
-		revDelMST<int>(&matGraph2);
+		revDelMST<int>(&listGraph2);
 		end = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
 		timeElapsed = end - begin;
 		cout << "Time elapsed: " << timeElapsed << endl;
 	cout << "---------------------" << endl;
 		// ALGraph
-	cout << "---TEST: Reverse-Delete algorithm on AMGraph---" << endl;
+		cout << "---TEST: Reverse-Delete algorithm on ALGraph---" << endl;
 		begin = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
-		revDelMST<int>(&listGraph2);
+		revDelMST<int>(&matGraph2);
 		end = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
 		timeElapsed = end - begin;
 		cout << "Time elapsed: " << timeElapsed << endl;
